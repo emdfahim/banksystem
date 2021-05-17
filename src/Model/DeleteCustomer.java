@@ -235,6 +235,34 @@ public class DeleteCustomer extends JInternalFrame implements ActionListener {
 		catch (ArrayIndexOutOfBoundsException ex) { }
 
 	}
+	
+	public boolean deleteRecord (String number) {
+		boolean found = false;
+		int index = 0;
+		for (int x = 0; x < total; x++) {
+			if (records[x][0].equals (number)) {
+				found = true;
+				index = x;
+				break;
+			}
+		}
+		
+		recCount = index;
+		try {
+			if (records != null) {
+				for(int i = recCount; i < total; i++) {
+					for (int r = 0; r < 6; r++) {
+						records[i][r] = records[i+1][r];				
+						if (records[i][r] == null) break;
+					}
+				}
+				total = total - 1;
+				deleteFile ();
+			}
+		}
+		catch (ArrayIndexOutOfBoundsException ex) { }
+		return found;
+	}
 
 	//Function use to Save Records to File After Deleting the Record of User Choice.
 	void deleteFile () {

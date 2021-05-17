@@ -242,6 +242,42 @@ public class DepositMoney extends JInternalFrame implements ActionListener {
 		txtNo.requestFocus ();
 
 	}
+	
+	public int viewAmount(String number) {
+		boolean found = false;
+		int index = 0;
+		for (int x = 0; x < total; x++) {
+			if (records[x][0].equals (number)) {
+				found = true;
+				index = x;
+				break;
+			}
+		}
+		if(found == false)
+			return -1;
+		System.out.println(records[index][5]);
+		return Integer.parseInt(records[index][5]);
+				
+	}
+	
+	public void editRecordDeposit(String number, int amount) {
+		boolean found = false;
+		int index = 0;
+		for (int x = 0; x < total; x++) {
+			if (records[x][0].equals (number)) {
+				found = true;
+				index = x;
+				break;
+			}
+		}
+		recCount = index;
+		
+		deposit = amount;
+		int prevAmount = Integer.parseInt(records[recCount][5]);
+		records[recCount][5] = "" + (prevAmount + deposit);
+		editFile ();
+		
+	}
 
 	//Function use to Edit an Element's Value of the Array.
 	public void editRec () {
